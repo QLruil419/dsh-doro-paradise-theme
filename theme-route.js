@@ -8,8 +8,8 @@ const ASSETS = fileURLToPath(new URL('./assets/', import.meta.url))
 const FILES = Object.freeze({
   backgroundLight: 'background-light-clean.png',
   backgroundDark: 'background-dark-clean.png',
-  overlay: 'dorothy-doro-overlay.png',
-  dorothy: 'dorothy-overlay.png',
+  overlay: 'dorothy-sidebar-tea-v2.png',
+  dorothy: 'dorothy-wallpaper-v2.png',
   doro: 'doro-overlay.png',
   icon: 'doro-icon.svg',
   favicon: 'doro-favicon.svg',

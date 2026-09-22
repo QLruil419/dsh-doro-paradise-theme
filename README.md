@@ -16,6 +16,7 @@
 - 设置弹窗左侧提供独立的 `Doro Paradise` 一级页面，与“通用设置”“模型”等并列。
 - 侧边栏遮罩可以独立调节，让底部桃乐丝立绘按需显现。
 - 壁纸中央加入独立桃乐丝本体，右下角 Doro 可单独缩放，不再与背景图烘焙在一起。
+- 壁纸采用融入伊甸园环境的安静站姿桃乐丝，侧栏则采用独立的玫瑰茶会坐姿立绘，两处不再复用同一形象。
 - 设置保存在当前浏览器的 `localStorage` 中，无需重启 Harness。
 - 不修改 DeepSeek Harness 源码，可随时卸载。
 
@@ -23,7 +24,8 @@
 
 | 版本 | 内容 | 推荐用途 |
 | --- | --- | --- |
-| `v1.2.1` | 当前版。设置已独立为与“通用设置”“模型”等并列的 `Doro Paradise` 页面。 | 推荐 |
+| `v1.3.0` | 当前版。壁纸与侧边栏改用两套不同的桃乐丝立绘，并优化壁纸融合感。 | 推荐 |
+| `v1.2.1` | 设置已独立为与“通用设置”“模型”等并列的 `Doro Paradise` 页面。 | 旧版 |
 | `v1.2.0` | 加入侧边栏透明度、中央桃乐丝图层以及可缩放右侧 Doro。 | 旧版 |
 | `v1.1.0` | 玻璃花园版。加入可调壁纸、毛玻璃、液态玻璃、高光、饱和度与花瓣开关。 | 旧版 |
 | `v1.0.2` | 经典版。固定透明度与毛玻璃，没有设置面板。 | 喜欢简洁或用于兼容性排查 |
@@ -129,7 +131,7 @@ npx --yes '@deepseek-ai/dsh@latest' plugin --profile web add -w $pluginDir
 
 ## 与其他皮肤的兼容性
 
-不要同时启用会重写背景、面板透明度或主题变量的全局皮肤，例如 `dsh-dream-skin`。它们可能互相覆盖，造成壁纸不显示、透明度异常或插件加载顺序问题。Doro Paradise `v1.2.1` 已内置常用的透明度、毛玻璃、液态玻璃和角色图层控制，通常不再需要额外皮肤插件。
+不要同时启用会重写背景、面板透明度或主题变量的全局皮肤，例如 `dsh-dream-skin`。它们可能互相覆盖，造成壁纸不显示、透明度异常或插件加载顺序问题。Doro Paradise `v1.3.0` 已内置常用的透明度、毛玻璃、液态玻璃和角色图层控制，通常不再需要额外皮肤插件。
 
 ## 卸载
 
@@ -215,7 +217,7 @@ npx --yes pnpm@latest install
 - 图片与 SVG：`assets/`
 - 生成素材时使用的提示词：`PROMPTS.md`
 
-替换 `assets/background-light.png`、`assets/background-dark.png` 或 `assets/dorothy-doro-overlay.png` 后，重启 `dsh web` 即可。保持文件名不变时无需修改代码。
+替换 `assets/background-light-clean.png`、`assets/background-dark-clean.png`、`assets/dorothy-wallpaper-v2.png` 或 `assets/dorothy-sidebar-tea-v2.png` 后，重启 `dsh web` 即可。保持文件名不变时无需修改代码。
 
 本地检查：
 

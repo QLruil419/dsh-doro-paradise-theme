@@ -2,6 +2,15 @@
 
 All notable changes to Doro Paradise are documented here.
 
+## [1.3.0] - 2026-09-22
+
+### Changed
+
+- Replaced the centered wallpaper Dorothy with a calmer, low-contrast pearl-and-rose standing illustration designed to blend into the Eden wallpaper.
+- Replaced the sidebar artwork with a separate tea-party seated Dorothy and Doro composition.
+- Wallpaper and sidebar now use intentionally different poses, costume details, silhouettes, and moods for greater visual variety.
+- Refreshed the README hero image to preview the new wallpaper character.
+
 ## [1.2.1] - 2026-09-22
 
 ### Changed
@@ -56,3 +65,4 @@ All notable changes to Doro Paradise are documented here.
 [1.0.2]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.0.2
 [1.2.0]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.2.0
 [1.2.1]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.2.1
+[1.3.0]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.3.0

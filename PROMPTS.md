@@ -102,3 +102,36 @@ Color palette: pearl white, blush pink, lavender, and rose gold
 Constraints: preserve Dorothy's pink hair, white layered dress, rose ornaments, mechanical angel wings, and recognizable face; preserve Doro's pink-haired white mascot form; no text, logo, UI, border, or watermark
 Avoid: portrait canvas, dark background, sidebar layout, character cut off at the head, or additional characters
 ```
+
+## v1.3.0 Eden-integrated wallpaper Dorothy
+
+```text
+Use case: stylized-concept
+Asset type: transparent full-body character overlay placed near the center of a pastel Eden desktop wallpaper
+Primary request: create a new, distinct Dorothy-inspired full-body illustration that feels naturally designed for the luminous Eden garden and does not resemble pasted-in battle splash art
+Subject: long pastel-pink hair, violet eyes, rose ornaments, pearl-white layered dress, restrained pale-lavender and rose-gold mechanical-angel details; calm three-quarter standing pose, one hand gently holding a flower or ribbon and the other relaxed
+Style/medium: premium 2D anime game illustration with delicate cel painting, soft edges, restrained detail, and low contrast suitable for display at 35–45% opacity
+Lighting/mood: luminous diffuse morning light, soft pearl highlights, gentle atmospheric rim light
+Constraints: genuinely transparent background; no mascot, scenery, text, logo, watermark, weapon, dark outfit, theatrical combat pose, or rectangular backdrop; keep the complete silhouette inside the canvas
+```
+
+## v1.3.0 sidebar tea-party Dorothy
+
+```text
+Use case: stylized-concept
+Asset type: transparent vertical character vignette for the lower portion of a narrow application sidebar
+Primary request: create a second Dorothy-inspired illustration that is unmistakably different from the wallpaper character: a warm rose-garden tea-party vignette with a seated three-quarter pose and a small Doro mascot beside her
+Subject: seated sideways on a pearl-and-rose chair, holding a tiny teacup; high-neck pearl blouse, layered blush-and-white skirt, translucent capelet, lavender bows, rose-gold filigree, compact mechanical feather accents; Doro curled happily near her feet
+Composition/framing: tall narrow composition concentrated in the lower two-thirds, complete character, chair, shoes and mascot inside the canvas, compact silhouette readable in a 380px sidebar
+Constraints: genuinely transparent background; no scenic backdrop, text, logo, watermark, weapon, standing pose, oversized wings, cropped character, or rectangular gradient
+```
+
+## v1.3.0 README preview composite
+
+```text
+Use case: compositing
+Asset type: 16:9 GitHub README preview matching the actual Doro Paradise theme
+Primary request: compose the clean Eden wallpaper with the exact new calm standing Dorothy at center-left and the Doro mascot near the lower-right
+Integration: match the background's diffuse daylight, pearl highlights, pastel saturation, and atmospheric softness so Dorothy feels native to the garden rather than pasted over it
+Constraints: preserve the wide architecture and character identity; no second Dorothy, sidebar layout, text, logo, UI, border, watermark, harsh contrast, or cropped body
+```
