@@ -2,6 +2,13 @@
 
 All notable changes to Doro Paradise are documented here.
 
+## [1.2.1] - 2026-09-22
+
+### Changed
+
+- Moved Doro Paradise controls out of General settings into a dedicated top-level `Doro Paradise` settings section.
+- The new section uses Harness's native `settings.section` slot and appears alongside General, Models, Plugin Market, and Side Card.
+
 ## [1.2.0] - 2026-09-22
 
 ### Added
@@ -48,3 +55,4 @@ All notable changes to Doro Paradise are documented here.
 [1.1.0]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.1.0
 [1.0.2]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.0.2
 [1.2.0]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.2.0
+[1.2.1]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.2.1

@@ -452,12 +452,12 @@ body[${SCOPE}][data-doro-motion="off"] .doro-petals { display: none; }
         }
 
         return React.createElement('section', {
-          style: { padding: '16px 0 6px', borderTop: '1px solid var(--dsw-alias-border-l2)', marginTop: 4 },
+          style: { padding: '2px 0 24px' },
         },
-          React.createElement('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'start', gap: 12, marginBottom: 8 } },
+          React.createElement('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'start', gap: 12, marginBottom: 16 } },
             React.createElement('div', null,
-              React.createElement('div', { style: { ...labelStyle, fontSize: 15 } }, 'Doro Paradise 玻璃外观'),
-              React.createElement('div', { style: hintStyle }, '设置保存在当前浏览器，拖动时实时预览。')),
+              React.createElement('div', { style: { ...labelStyle, fontSize: 19, fontWeight: 600 } }, 'Doro Paradise'),
+              React.createElement('div', { style: { ...hintStyle, marginTop: 5 } }, '桃乐丝主题、角色图层与玻璃外观。设置保存在当前浏览器，拖动时实时预览。')),
             React.createElement('button', {
               type: 'button', onClick: reset,
               style: { border: '1px solid var(--dsw-alias-border-l)', background: 'var(--dsw-alias-bg-layer-2)', color: 'var(--dsw-alias-label-primary)', borderRadius: 999, padding: '6px 11px', cursor: 'pointer' },
@@ -488,11 +488,12 @@ body[${SCOPE}][data-doro-motion="off"] .doro-petals { display: none; }
     function apply(ctx) {
       const React = require('react')
       const DoroAppearanceSettings = createAppearanceSettings(React)
-      ctx.effect(() => ctx.slots.inject('settings.general.item', () => ctx.slots.register({
-        name: 'settings.general.item',
-        id: 'doro-paradise-appearance',
-        order: 18,
-      }, DoroAppearanceSettings)), 'doro-paradise: appearance settings')
+      ctx.effect(() => ctx.slots.inject('settings.section', () => ctx.slots.register({
+        name: 'settings.section',
+        id: 'doro-paradise',
+        order: 35,
+        label: () => 'Doro Paradise',
+      }, DoroAppearanceSettings)), 'doro-paradise: settings section')
 
       ctx.effect(() => {
         const style = document.createElement('style')

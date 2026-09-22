@@ -13,7 +13,7 @@ An unofficial DeepSeek Harness web theme inspired by Dorothy and the Doro meme f
 - Coordinated light and dark palettes that follow Harness's `Light`, `Dark`, and `System` appearance modes.
 - Dorothy/Doro wallpapers, sidebar artwork, custom wordmark, new-session icon, rose composer frame, and optional falling petals.
 - Consistent styling for messages, code blocks, tool calls, dialogs, and the sidebar.
-- Built-in controls under `Settings → General → Doro Paradise Glass Appearance`.
+- A dedicated `Settings → Doro Paradise` top-level page alongside General, Models, and other native sections.
 - Independent sidebar transparency, centered Dorothy, and a separately scalable right-side Doro layer.
 - Live preview with browser-local persistence; no Harness restart is required for setting changes.
 - Installs as a normal Harness plugin and does not patch Harness source files.
@@ -84,7 +84,7 @@ Restart the Harness web process after upgrading.
 
 ## Appearance controls
 
-Open `Settings → General → Doro Paradise Glass Appearance` to adjust:
+Open `Settings → Doro Paradise` to adjust:
 
 - Wallpaper opacity and wallpaper-only blur.
 - Sidebar transparency, allowing the sidebar Dorothy artwork to remain visible.

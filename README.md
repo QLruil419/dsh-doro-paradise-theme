@@ -13,7 +13,7 @@
 - 完整的亮色与暗色主题，跟随 Harness 的 `Light`、`Dark`、`System` 外观选项。
 - 桃乐丝与 Doro 壁纸、侧栏立绘、品牌字标、新会话图标、输入框玫瑰边框与花瓣动画。
 - 用户消息、代码块、工具调用、弹窗和侧栏采用统一的玫瑰/莓紫视觉语言。
-- `Settings → General → Doro Paradise 玻璃外观` 内置实时外观控制。
+- 设置弹窗左侧提供独立的 `Doro Paradise` 一级页面，与“通用设置”“模型”等并列。
 - 侧边栏遮罩可以独立调节，让底部桃乐丝立绘按需显现。
 - 壁纸中央加入独立桃乐丝本体，右下角 Doro 可单独缩放，不再与背景图烘焙在一起。
 - 设置保存在当前浏览器的 `localStorage` 中，无需重启 Harness。
@@ -102,7 +102,7 @@ npx --yes '@deepseek-ai/dsh@latest' plugin --profile web add -w $pluginDir
 
 ## 玻璃外观设置
 
-打开 `Settings → General → Doro Paradise 玻璃外观`：
+打开 `Settings → Doro Paradise`：
 
 | 控件 | 范围 | 作用 |
 | --- | ---: | --- |
