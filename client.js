@@ -9,6 +9,7 @@ window.__ModuleLoader__.load({
       wallpaperOpacity: 42,
       wallpaperBlur: 0,
       sidebarOpacity: 62,
+      sidebarArtBottom: 190,
       panelOpacity: 78,
       glassBlur: 16,
       saturation: 112,
@@ -26,6 +27,7 @@ window.__ModuleLoader__.load({
         wallpaperOpacity: clamp(value.wallpaperOpacity ?? DEFAULT_APPEARANCE.wallpaperOpacity, 0, 100),
         wallpaperBlur: clamp(value.wallpaperBlur ?? DEFAULT_APPEARANCE.wallpaperBlur, 0, 32),
         sidebarOpacity: clamp(value.sidebarOpacity ?? DEFAULT_APPEARANCE.sidebarOpacity, 18, 100),
+        sidebarArtBottom: clamp(value.sidebarArtBottom ?? DEFAULT_APPEARANCE.sidebarArtBottom, 48, 320),
         panelOpacity: clamp(value.panelOpacity ?? DEFAULT_APPEARANCE.panelOpacity, 28, 100),
         glassBlur: clamp(value.glassBlur ?? DEFAULT_APPEARANCE.glassBlur, 0, 40),
         saturation: clamp(value.saturation ?? DEFAULT_APPEARANCE.saturation, 80, 150),
@@ -58,6 +60,7 @@ window.__ModuleLoader__.load({
       body.style.setProperty('--doro-sidebar-mid', `${clamp(appearance.sidebarOpacity + 12, 18, 100)}%`)
       body.style.setProperty('--doro-sidebar-low', `${clamp(appearance.sidebarOpacity - 12, 8, 100)}%`)
       body.style.setProperty('--doro-sidebar-bottom', `${clamp(appearance.sidebarOpacity - 32, 0, 100)}%`)
+      body.style.setProperty('--doro-sidebar-art-bottom', `${appearance.sidebarArtBottom}px`)
       body.style.setProperty('--doro-panel-fill', `${appearance.panelOpacity}%`)
       body.style.setProperty('--doro-glass-blur', `${appearance.glassBlur}px`)
       body.style.setProperty('--doro-glass-saturation', (appearance.saturation / 100).toFixed(2))
@@ -84,6 +87,7 @@ body[${SCOPE}] {
   --doro-sidebar-mid: 74%;
   --doro-sidebar-low: 50%;
   --doro-sidebar-bottom: 30%;
+  --doro-sidebar-art-bottom: 190px;
   --doro-panel-fill: 78%;
   --doro-glass-blur: 16px;
   --doro-glass-saturation: 1.12;
@@ -205,7 +209,7 @@ body[${SCOPE}] [data-slot="sidebar"] > div:first-child {
       color-mix(in srgb, var(--doro-ground) var(--doro-sidebar-bottom), transparent) 100%),
     url("${asset.overlay}");
   background-size: auto, 94% auto;
-  background-position: center, bottom 48px center;
+  background-position: center, 50% calc(100% - var(--doro-sidebar-art-bottom));
   background-repeat: no-repeat;
 }
 body[${SCOPE}] [data-slot="sidebar"] > div[class*="collapsed"] { background-image: none; }
@@ -474,6 +478,7 @@ body[${SCOPE}][data-doro-motion="off"] .doro-petals { display: none; }
           React.createElement(RangeRow, { label: '壁纸强度', hint: '控制背景图可见程度。', value: appearance.wallpaperOpacity, min: 0, max: 100, step: 1, unit: '%', onChange: value => change('wallpaperOpacity', value) }),
           React.createElement(RangeRow, { label: '壁纸模糊', hint: '只模糊背景，不影响文字和控件。', value: appearance.wallpaperBlur, min: 0, max: 32, step: 1, unit: 'px', onChange: value => change('wallpaperBlur', value) }),
           React.createElement(RangeRow, { label: '侧边栏不透明度', hint: '数值越低，侧边栏中的桃乐丝越清晰。', value: appearance.sidebarOpacity, min: 18, max: 100, step: 1, unit: '%', onChange: value => change('sidebarOpacity', value) }),
+          React.createElement(RangeRow, { label: '侧栏立绘高度', hint: '数值越大，桃乐丝与 Doro 越靠上，避免被底部插件按钮或分割线遮挡。', value: appearance.sidebarArtBottom, min: 48, max: 320, step: 4, unit: 'px', onChange: value => change('sidebarArtBottom', value) }),
           React.createElement(RangeRow, { label: '面板不透明度', hint: '数值越低，玻璃越通透。', value: appearance.panelOpacity, min: 28, max: 100, step: 1, unit: '%', onChange: value => change('panelOpacity', value) }),
           React.createElement(RangeRow, { label: '毛玻璃模糊', hint: '控制浮层后的折射模糊。', value: appearance.glassBlur, min: 0, max: 40, step: 1, unit: 'px', onChange: value => change('glassBlur', value) }),
           React.createElement(RangeRow, { label: '玻璃饱和度', hint: '提高壁纸透过玻璃后的色彩浓度。', value: appearance.saturation, min: 80, max: 150, step: 1, unit: '%', onChange: value => change('saturation', value) }),
@@ -551,7 +556,7 @@ body[${SCOPE}][data-doro-motion="off"] .doro-petals { display: none; }
           document.body.removeAttribute('data-doro-motion')
           for (const property of [
             '--doro-wallpaper-opacity', '--doro-wallpaper-blur',
-            '--doro-sidebar-top', '--doro-sidebar-mid', '--doro-sidebar-low', '--doro-sidebar-bottom',
+            '--doro-sidebar-top', '--doro-sidebar-mid', '--doro-sidebar-low', '--doro-sidebar-bottom', '--doro-sidebar-art-bottom',
             '--doro-panel-fill', '--doro-glass-blur', '--doro-glass-saturation',
             '--doro-dorothy-opacity', '--doro-dorothy-size', '--doro-mascot-size',
           ]) {

@@ -2,6 +2,16 @@
 
 All notable changes to Doro Paradise are documented here.
 
+## [1.3.1] - 2026-09-22
+
+### Fixed
+
+- Raised the default sidebar Dorothy artwork from 48 px to 190 px above the bottom edge so plugin shortcuts and separators no longer cut through Dorothy's feet or Doro.
+
+### Added
+
+- Added a live `侧栏立绘高度` control ranging from 48 px to 320 px for layouts with different numbers of sidebar plugins.
+
 ## [1.3.0] - 2026-09-22
 
 ### Changed
@@ -66,3 +76,4 @@ All notable changes to Doro Paradise are documented here.
 [1.2.0]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.2.0
 [1.2.1]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.2.1
 [1.3.0]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.3.0
+[1.3.1]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.3.1
