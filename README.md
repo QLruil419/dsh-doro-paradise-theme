@@ -1,33 +1,127 @@
-# Doro Paradise — DeepSeek Harness 主题
+# Doro Paradise for DeepSeek Harness
 
-以《胜利女神：妮姬》桃乐丝与 Doro 梗形象为灵感的非官方、非商业主题。桃乐丝本体负责“伊甸园 / 珍珠白 / 玫瑰 / 机械天使”的优雅视觉，Doro 负责一点不安定的可爱。
+[English](README.en.md) · [更新日志](CHANGELOG.md) · [素材说明](ASSET_NOTICE.md) · [贡献指南](CONTRIBUTING.md)
 
-## 视觉设计
+一个以《胜利女神：妮姬》桃乐丝与 Doro 梗形象为灵感的 DeepSeek Harness Web 主题。桃乐丝本体负责“伊甸园、珍珠白、玫瑰与机械天使”的优雅视觉，Doro 则负责一点不安定的可爱。
 
-- 暗色：莓紫黑底、尘玫瑰强调色、薰衣草高光、薄荷绿成功状态。
-- 亮色：珍珠白底，使用更深的莓粉保证文字和焦点环清晰。
-- 桃乐丝与 Doro 双人立绘放在展开侧栏底部；明暗壁纸右侧保留 Doro 彩蛋。
-- 用户消息使用玫瑰色气泡；代码块维持低干扰的独立底色。
-- 输入框有玫瑰边角与 Doro 小装饰；背景花瓣动画自动遵守 `prefers-reduced-motion`。
+> 非官方粉丝项目，与 SHIFT UP、Level Infinite、DeepSeek 无关联。代码以 MIT 许可证开源；角色、名称及原作相关权利归各自权利人所有。详情见 [ASSET_NOTICE.md](ASSET_NOTICE.md)。
 
-## 安装
+![Doro Paradise 浅色壁纸](assets/background-light.png)
 
-在 PowerShell 中进入本目录并运行：
+## 功能
+
+- 完整的亮色与暗色主题，跟随 Harness 的 `Light`、`Dark`、`System` 外观选项。
+- 桃乐丝与 Doro 壁纸、侧栏立绘、品牌字标、新会话图标、输入框玫瑰边框与花瓣动画。
+- 用户消息、代码块、工具调用、弹窗和侧栏采用统一的玫瑰/莓紫视觉语言。
+- `Settings → General → Doro Paradise 玻璃外观` 内置实时外观控制。
+- 设置保存在当前浏览器的 `localStorage` 中，无需重启 Harness。
+- 不修改 DeepSeek Harness 源码，可随时卸载。
+
+## 版本
+
+| 版本 | 内容 | 推荐用途 |
+| --- | --- | --- |
+| `v1.1.0` | 当前版。加入可调壁纸、毛玻璃、液态玻璃、高光、饱和度与花瓣开关。 | 推荐 |
+| `v1.0.2` | 经典版。固定透明度与毛玻璃，没有设置面板。 | 喜欢简洁或用于兼容性排查 |
+
+Git 标签和 GitHub Releases 同时保留这两个版本。
+
+## 环境要求
+
+- Windows PowerShell 5.1 或 PowerShell 7。
+- 已安装 Node.js，并可使用 `npm` 与 `npx`。
+- 可正常启动 DeepSeek Harness Web profile。
+
+可先检查：
 
 ```powershell
+node --version
+npm --version
+npx --yes '@deepseek-ai/dsh@latest' --version
+```
+
+## 安装当前版
+
+### 方法一：一键脚本
+
+```powershell
+git clone https://github.com/QLruil419/dsh-doro-paradise-theme.git
+Set-Location .\dsh-doro-paradise-theme
+.\install.ps1
+npx --yes '@deepseek-ai/dsh@latest' web
+```
+
+如果 PowerShell 阻止运行本地脚本，只对当前窗口临时放行：
+
+```powershell
+Set-ExecutionPolicy -Scope Process Bypass
 .\install.ps1
 ```
 
-或者手动执行：
+### 方法二：手动安装
 
 ```powershell
+git clone https://github.com/QLruil419/dsh-doro-paradise-theme.git
+Set-Location .\dsh-doro-paradise-theme
 npm install
 $pluginDir = (Resolve-Path .).Path
 npx --yes '@deepseek-ai/dsh@latest' plugin --profile web add -w $pluginDir
 npx --yes '@deepseek-ai/dsh@latest' web
 ```
 
-主题挂载后会自动生效。DeepSeek Harness 的 Appearance 选择 `Light` / `Dark` / `System` 时，会同步切换对应壁纸和配色。
+`-w` 会把当前目录作为工作区插件挂载；修改主题源码后，重新启动 `dsh web` 即可看到变化。
+
+## 安装经典版 `v1.0.2`
+
+```powershell
+git clone https://github.com/QLruil419/dsh-doro-paradise-theme.git
+Set-Location .\dsh-doro-paradise-theme
+git switch --detach v1.0.2
+.\install.ps1
+npx --yes '@deepseek-ai/dsh@latest' web
+```
+
+也可以直接在 GitHub Releases 下载 `dsh-doro-paradise-theme-v1.0.2.zip`，解压后运行 `install.ps1`。
+
+## 从旧版升级
+
+在仓库目录中执行：
+
+```powershell
+git switch main
+git pull --ff-only
+npm install
+$pluginDir = (Resolve-Path .).Path
+npx --yes '@deepseek-ai/dsh@latest' plugin --profile web add -w $pluginDir
+```
+
+随后停止并重新启动正在运行的 Harness Web 服务。
+
+## 玻璃外观设置
+
+打开 `Settings → General → Doro Paradise 玻璃外观`：
+
+| 控件 | 范围 | 作用 |
+| --- | ---: | --- |
+| 壁纸强度 | 0–100% | 控制背景图可见程度。 |
+| 壁纸模糊 | 0–32px | 只模糊壁纸，不影响文字和控件。 |
+| 面板不透明度 | 28–100% | 数值越低，玻璃越通透。 |
+| 毛玻璃模糊 | 0–40px | 控制面板后的背景模糊。 |
+| 玻璃饱和度 | 80–150% | 调整透过玻璃的色彩浓度。 |
+| 液态玻璃高光 | 开/关 | 增加镜面边缘、内高光与悬停折射感。 |
+| 漂浮花瓣 | 开/关 | 控制背景动画；系统“减少动态效果”设置也会被遵守。 |
+
+推荐预设：
+
+- 清爽：壁纸 35%、面板 86%、模糊 12px、关闭液态高光。
+- 平衡：壁纸 42%、面板 78%、模糊 16px、开启液态高光（默认）。
+- 通透：壁纸 58%、面板 58%、模糊 24px、饱和度 120%。
+
+“液态玻璃”是面向 Chromium 的 CSS 近似效果；不支持相应 CSS 的浏览器会自然回退为普通半透明面板。
+
+## 与其他皮肤的兼容性
+
+不要同时启用会重写背景、面板透明度或主题变量的全局皮肤，例如 `dsh-dream-skin`。它们可能互相覆盖，造成壁纸不显示、透明度异常或插件加载顺序问题。Doro Paradise `v1.1.0` 已内置常用的透明度、毛玻璃与液态玻璃控制，通常不再需要额外皮肤插件。
 
 ## 卸载
 
@@ -35,17 +129,28 @@ npx --yes '@deepseek-ai/dsh@latest' web
 .\uninstall.ps1
 ```
 
-## 自定义
+或手动执行：
 
-主要色值与透明度在 `client.js` 顶部的 CSS token 区域。替换 `assets/background-light.png`、`background-dark.png` 或 `dorothy-doro-overlay.png` 后重启 `dsh web` 即可。
+```powershell
+npx --yes '@deepseek-ai/dsh@latest' plugin --profile web remove -w dsh-doro-paradise-theme
+```
 
-## 兼容性说明
+## 故障排查
 
-本主题使用 DeepSeek Harness 的 Web client plugin 与 `webServer` 扩展点，不修改 Harness 源码。部分元素通过稳定语义属性和 CSS module 名称片段定位；若未来 Harness 重命名组件类，品牌图或新会话图标可能需要跟随调整，核心配色与壁纸不受影响。
+### `Failed to load plugins` / `loaded without registering`
 
-## `ERR_PNPM_BROKEN_LOCKFILE`
+确认使用 `v1.0.2` 或更高版本。早期构建曾使用不一致的模块 ID；当前模块会以 `dsh-doro-paradise-theme` 正确注册。
 
-如果旧版 Harness 留下的 profile 锁文件与当前内置 pnpm 不兼容，请先退出正在运行的 Harness，然后备份旧锁文件，再重新添加插件：
+```powershell
+git describe --tags --always
+Select-String -Path .\client.js -Pattern "id: 'dsh-doro-paradise-theme'"
+```
+
+同时关闭 `dsh-dream-skin` 等全局皮肤，重新启动 Harness。
+
+### `ERR_PNPM_BROKEN_LOCKFILE`
+
+先退出正在运行的 Harness。将下面的 profile 路径改成你的实际位置，然后只备份锁文件：
 
 ```powershell
 $profileDir = 'D:\dsh\.dsh\profiles\web'
@@ -55,8 +160,71 @@ $pluginDir = (Resolve-Path .).Path
 npx --yes '@deepseek-ai/dsh@latest' plugin --profile web add -w $pluginDir
 ```
 
-不要在 profile 目录中直接执行 `npm install`，也不要删除整个 `.dsh` 目录。
+不要删除整个 `.dsh` 目录，也不要在 profile 目录中执行 `npm install`。
 
-## 素材与声明
+### `ERR_PNPM_VIRTUAL_STORE_DIR_MAX_LENGTH_DIFF`
 
-本包中的 PNG 插画由 OpenAI 图像生成工具为该主题生成，SVG 图标为本项目原创。角色灵感及相关权利归其权利人所有；本项目与 SHIFT UP、Level Infinite 或 DeepSeek 官方无关联，仅建议个人、非商业使用。
+旧版 pnpm 创建的 profile `node_modules` 与当前配置不兼容。先退出 Harness，再将它移动为备份后重建：
+
+```powershell
+$profileDir = 'D:\dsh\.dsh\profiles\web'
+$stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
+Move-Item -LiteralPath "$profileDir\node_modules" -Destination "$profileDir\node_modules.bak-$stamp"
+if (Test-Path -LiteralPath "$profileDir\pnpm-lock.yaml") {
+  Move-Item -LiteralPath "$profileDir\pnpm-lock.yaml" -Destination "$profileDir\pnpm-lock.yaml.bak-$stamp"
+}
+$pluginDir = (Resolve-Path .).Path
+npx --yes '@deepseek-ai/dsh@latest' plugin --profile web add -w $pluginDir
+```
+
+确认新版本正常后，再手动删除带时间戳的备份目录。
+
+### `ERR_PNPM_IGNORED_BUILDS`
+
+在 Harness 的 Web profile 目录中运行构建批准命令，选择错误信息点名的依赖（常见为 `cloudflared` 和 `node-pty`），然后重新添加插件：
+
+```powershell
+Set-Location 'D:\dsh\.dsh\profiles\web'
+npx --yes pnpm@latest approve-builds
+npx --yes pnpm@latest install
+```
+
+仅批准你确认来自 Harness 依赖树的包。
+
+### 壁纸没有出现
+
+1. 确认 Doro Paradise 已加载，浏览器控制台没有 manifest 或 asset 404。
+2. 关闭其他会重写 `body` 背景的主题插件。
+3. 在玻璃外观设置中确认“壁纸强度”不为 0。
+4. 强制刷新页面并重启 `dsh web`。
+
+## 自定义与开发
+
+- 主题 CSS、设置面板和客户端注册：`client.js`
+- 静态资源服务与 manifest：`theme-route.js`
+- 服务端插件入口：`index.js`
+- DSH bundle 声明：`cordis.patch.yml`
+- 图片与 SVG：`assets/`
+- 生成素材时使用的提示词：`PROMPTS.md`
+
+替换 `assets/background-light.png`、`assets/background-dark.png` 或 `assets/dorothy-doro-overlay.png` 后，重启 `dsh web` 即可。保持文件名不变时无需修改代码。
+
+本地检查：
+
+```powershell
+npm install
+node --check .\client.js
+node --check .\index.js
+node --check .\theme-route.js
+npm pack --dry-run
+```
+
+本项目使用 DeepSeek Harness 的 Web client plugin 与 `webServer` 扩展点，不修改 Harness 源码。部分装饰通过语义属性和 CSS module 名称片段定位；Harness 将来若重命名组件类，可能需要同步调整选择器。
+
+## 开源许可
+
+- JavaScript、PowerShell、Markdown 与项目自有 SVG：MIT License。
+- 桃乐丝、Doro、《胜利女神：妮姬》相关角色和标识：不包含在 MIT 授权中。
+- AI 生成的粉丝插画随仓库提供，用于本项目展示与个人非商业使用；详见 [ASSET_NOTICE.md](ASSET_NOTICE.md)。
+
+欢迎提交 Issue 和 Pull Request。提交前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。
