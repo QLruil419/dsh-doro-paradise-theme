@@ -6,7 +6,9 @@
 
 > 非官方粉丝项目，与 SHIFT UP、Level Infinite、DeepSeek 无关联。代码以 MIT 许可证开源；角色、名称及原作相关权利归各自权利人所有。详情见 [ASSET_NOTICE.md](ASSET_NOTICE.md)。
 
-![Doro Paradise 浅色壁纸](assets/background-light.png)
+<p align="center">
+  <img src="assets/dorothy-doro-overlay.png" alt="Doro Paradise 桃乐丝与 Doro" width="560">
+</p>
 
 ## 功能
 
@@ -23,7 +25,8 @@
 
 | 版本 | 内容 | 推荐用途 |
 | --- | --- | --- |
-| `v1.2.0` | 当前版。加入侧边栏透明度、中央桃乐丝图层以及可缩放右侧 Doro。 | 推荐 |
+| `v1.2.1` | 当前版。设置已独立为与“通用设置”“模型”等并列的 `Doro Paradise` 页面。 | 推荐 |
+| `v1.2.0` | 加入侧边栏透明度、中央桃乐丝图层以及可缩放右侧 Doro。 | 旧版 |
 | `v1.1.0` | 玻璃花园版。加入可调壁纸、毛玻璃、液态玻璃、高光、饱和度与花瓣开关。 | 旧版 |
 | `v1.0.2` | 经典版。固定透明度与毛玻璃，没有设置面板。 | 喜欢简洁或用于兼容性排查 |
 
@@ -128,7 +131,7 @@ npx --yes '@deepseek-ai/dsh@latest' plugin --profile web add -w $pluginDir
 
 ## 与其他皮肤的兼容性
 
-不要同时启用会重写背景、面板透明度或主题变量的全局皮肤，例如 `dsh-dream-skin`。它们可能互相覆盖，造成壁纸不显示、透明度异常或插件加载顺序问题。Doro Paradise `v1.2.0` 已内置常用的透明度、毛玻璃、液态玻璃和角色图层控制，通常不再需要额外皮肤插件。
+不要同时启用会重写背景、面板透明度或主题变量的全局皮肤，例如 `dsh-dream-skin`。它们可能互相覆盖，造成壁纸不显示、透明度异常或插件加载顺序问题。Doro Paradise `v1.2.1` 已内置常用的透明度、毛玻璃、液态玻璃和角色图层控制，通常不再需要额外皮肤插件。
 
 ## 卸载
 

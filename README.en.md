@@ -6,7 +6,9 @@ An unofficial DeepSeek Harness web theme inspired by Dorothy and the Doro meme f
 
 > This fan project is not affiliated with SHIFT UP, Level Infinite, or DeepSeek. The source code is released under the MIT License. Character names, designs, and other original-IP rights remain with their respective owners. See [ASSET_NOTICE.md](ASSET_NOTICE.md).
 
-![Doro Paradise light wallpaper](assets/background-light.png)
+<p align="center">
+  <img src="assets/dorothy-doro-overlay.png" alt="Doro Paradise Dorothy and Doro" width="560">
+</p>
 
 ## Highlights
 
@@ -22,7 +24,8 @@ An unofficial DeepSeek Harness web theme inspired by Dorothy and the Doro meme f
 
 | Version | Description |
 | --- | --- |
-| `v1.2.0` | Current release with sidebar transparency, a centered Dorothy layer, and separately scalable right-side Doro. |
+| `v1.2.1` | Current release with a dedicated `Doro Paradise` settings page alongside General and Models. |
+| `v1.2.0` | Adds sidebar transparency, a centered Dorothy layer, and separately scalable right-side Doro. |
 | `v1.1.0` | Glass Garden release with adjustable wallpaper, frosted glass, liquid-glass highlights, saturation, and petal controls. |
 | `v1.0.2` | Classic release with fixed opacity and blur, without a settings panel. |
 
@@ -104,7 +107,7 @@ The liquid-glass look is a Chromium-oriented CSS approximation. Browsers without
 
 ## Compatibility
 
-Avoid enabling another global skin that also rewrites the page background, panel opacity, or theme variables. In particular, `dsh-dream-skin` can override the same surfaces. Version `v1.2.0` includes opacity, frosted-glass, liquid-glass, and character-layer controls directly.
+Avoid enabling another global skin that also rewrites the page background, panel opacity, or theme variables. In particular, `dsh-dream-skin` can override the same surfaces. Version `v1.2.1` includes opacity, frosted-glass, liquid-glass, and character-layer controls directly.
 
 ## Uninstall
 
