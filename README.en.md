@@ -14,6 +14,7 @@ An unofficial DeepSeek Harness web theme inspired by Dorothy and the Doro meme f
 - Dorothy/Doro wallpapers, sidebar artwork, custom wordmark, new-session icon, rose composer frame, and optional falling petals.
 - Consistent styling for messages, code blocks, tool calls, dialogs, and the sidebar.
 - Built-in controls under `Settings → General → Doro Paradise Glass Appearance`.
+- Independent sidebar transparency, centered Dorothy, and a separately scalable right-side Doro layer.
 - Live preview with browser-local persistence; no Harness restart is required for setting changes.
 - Installs as a normal Harness plugin and does not patch Harness source files.
 
@@ -21,10 +22,11 @@ An unofficial DeepSeek Harness web theme inspired by Dorothy and the Doro meme f
 
 | Version | Description |
 | --- | --- |
-| `v1.1.0` | Current release with adjustable wallpaper, frosted glass, liquid-glass highlights, saturation, and petal controls. |
+| `v1.2.0` | Current release with sidebar transparency, a centered Dorothy layer, and separately scalable right-side Doro. |
+| `v1.1.0` | Glass Garden release with adjustable wallpaper, frosted glass, liquid-glass highlights, saturation, and petal controls. |
 | `v1.0.2` | Classic release with fixed opacity and blur, without a settings panel. |
 
-Both versions are preserved as Git tags and GitHub Releases.
+Formal versions are preserved as Git tags and GitHub Releases.
 
 ## Requirements
 
@@ -85,7 +87,10 @@ Restart the Harness web process after upgrading.
 Open `Settings → General → Doro Paradise Glass Appearance` to adjust:
 
 - Wallpaper opacity and wallpaper-only blur.
+- Sidebar transparency, allowing the sidebar Dorothy artwork to remain visible.
 - Panel opacity, glass blur, and glass saturation.
+- Center Dorothy opacity and size.
+- Right-side Doro size independently from the wallpaper.
 - Liquid-glass edge highlights and hover sheen.
 - Falling-petal animation.
 
@@ -99,7 +104,7 @@ The liquid-glass look is a Chromium-oriented CSS approximation. Browsers without
 
 ## Compatibility
 
-Avoid enabling another global skin that also rewrites the page background, panel opacity, or theme variables. In particular, `dsh-dream-skin` can override the same surfaces. Version `v1.1.0` includes the common opacity, frosted-glass, and liquid-glass controls directly.
+Avoid enabling another global skin that also rewrites the page background, panel opacity, or theme variables. In particular, `dsh-dream-skin` can override the same surfaces. Version `v1.2.0` includes opacity, frosted-glass, liquid-glass, and character-layer controls directly.
 
 ## Uninstall
 

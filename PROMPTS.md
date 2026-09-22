@@ -66,3 +66,22 @@ Primary request: remove the entire gray-pink gradient background and make it gen
 Input images: the immediately previous Dorothy-and-mascot illustration is the edit target
 Constraints: change only the background; keep Dorothy, her full costume, hair, wings, facial features, pose, and the small mascot exactly unchanged; preserve fine hair and lace edges; no added glow backdrop, shadow rectangle, scenery, text, logo, or watermark; keep the full uncropped character duo inside the canvas
 ```
+
+## v1.2.0 clean wallpaper edits
+
+```text
+Use case: precise-object-edit
+Asset type: desktop application wallpaper, light and dark theme variants
+Primary request: remove only the large pink chibi Doro character peeking in from the right edge and reconstruct the Eden architecture, crystal railing, roses, sky, waterfalls, and surrounding details naturally behind it.
+Composition/framing: preserve the exact landscape composition and the quiet center space.
+Constraints: keep every other part of each wallpaper unchanged; do not add any person, mascot, text, logo, watermark, or new focal object; preserve the original light/night palette; fill the removed area seamlessly.
+```
+
+## v1.2.0 Dorothy-only overlay
+
+```text
+Use case: precise-object-edit
+Asset type: transparent character overlay for a desktop theme
+Primary request: remove only the small chibi Doro mascot at the lower right, leaving Dorothy alone as a full-body character cutout.
+Constraints: preserve Dorothy's face, pose, hair, white-and-pink dress, wings, hand, legs, shoes, proportions, linework, colors, and full silhouette exactly; reconstruct any tiny overlap; keep a genuinely transparent background with clean antialiased edges; no shadow rectangle, gradient background, text, watermark, or additional objects.
+```

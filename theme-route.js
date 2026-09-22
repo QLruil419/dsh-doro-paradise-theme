@@ -6,9 +6,11 @@ const ROUTE_PREFIX = '/doro-paradise-theme'
 const ASSETS = fileURLToPath(new URL('./assets/', import.meta.url))
 
 const FILES = Object.freeze({
-  backgroundLight: 'background-light.png',
-  backgroundDark: 'background-dark.png',
+  backgroundLight: 'background-light-clean.png',
+  backgroundDark: 'background-dark-clean.png',
   overlay: 'dorothy-doro-overlay.png',
+  dorothy: 'dorothy-overlay.png',
+  doro: 'doro-overlay.png',
   icon: 'doro-icon.svg',
   favicon: 'doro-favicon.svg',
   heroLogo: 'doro-paradise-wordmark.svg',

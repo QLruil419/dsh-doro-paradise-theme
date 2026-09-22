@@ -2,6 +2,20 @@
 
 All notable changes to Doro Paradise are documented here.
 
+## [1.2.0] - 2026-09-22
+
+### Added
+
+- Independent sidebar transparency control so the sidebar Dorothy artwork can remain visible.
+- A centered, separately layered Dorothy character with opacity and size controls.
+- A separately layered right-side Doro with an independent size control.
+- Clean light and dark wallpapers without an embedded mascot, preventing duplicate characters when resizing Doro.
+
+### Changed
+
+- The sidebar gradient now derives from the selected sidebar opacity while preserving a readability gradient.
+- Character artwork is rendered independently from the wallpaper blur and opacity.
+
 ## [1.1.0] - 2026-09-22
 
 ### Added
@@ -33,3 +47,4 @@ All notable changes to Doro Paradise are documented here.
 
 [1.1.0]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.1.0
 [1.0.2]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.0.2
+[1.2.0]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.2.0
