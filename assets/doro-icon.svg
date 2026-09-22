@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ffd7e8"/>
+      <stop offset="1" stop-color="#e99ab8"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#56365f" flood-opacity=".25"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path fill="#fffafb" stroke="#c8789b" stroke-width="4" d="M22 72c0-25 18-43 42-43s42 18 42 43c0 19-13 34-29 34H51C35 106 22 91 22 72Z"/>
+    <path fill="url(#hair)" stroke="#c8789b" stroke-width="4" d="M25 67c-2-33 18-51 43-49 22 1 38 19 35 49-10-14-22-20-39-20-16 0-29 6-39 20Z"/>
+    <path fill="url(#hair)" stroke="#c8789b" stroke-width="4" d="M91 27c12-10 27 0 22 13-5 14-23 12-26 0-2-6 0-10 4-13Z"/>
+    <path fill="none" stroke="#fff4fa" stroke-width="3" stroke-linecap="round" d="M95 31c7-4 13 2 10 7-3 6-11 4-12 0"/>
+    <ellipse cx="47" cy="71" rx="9" ry="12" fill="#8d72c4"/>
+    <ellipse cx="81" cy="71" rx="9" ry="12" fill="#8d72c4"/>
+    <circle cx="50" cy="67" r="3.2" fill="#fff"/>
+    <circle cx="84" cy="67" r="3.2" fill="#fff"/>
+    <path d="M57 87c4 5 10 5 14 0" fill="none" stroke="#5d3558" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

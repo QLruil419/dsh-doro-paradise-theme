@@ -1,0 +1,35 @@
+{
+  "name": "dsh-doro-paradise-theme",
+  "version": "1.0.2",
+  "description": "A Doro-inspired Paradise skin for the DeepSeek Harness web UI",
+  "type": "module",
+  "main": "index.js",
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "client.js",
+    "theme-route.js",
+    "cordis.patch.yml",
+    "PROMPTS.md",
+    "assets"
+  ],
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@deepseek-ai/schemastery": "^3.18.1"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  }
+}

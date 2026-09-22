@@ -1,0 +1,4 @@
+# Mount the Doro Paradise host + client plugin in the web profile.
+- insert:
+    - id: doro-paradise-theme
+      name: dsh-doro-paradise-theme
