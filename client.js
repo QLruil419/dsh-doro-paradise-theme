@@ -1,9 +1,57 @@
 window.__ModuleLoader__.load({
   id: 'dsh-doro-paradise-theme',
-  factory: () => {
+  factory: (require) => {
     const module = { exports: {} }
     const SCOPE = 'data-doro-paradise'
     const MANIFEST = '/doro-paradise-theme/manifest'
+    const STORAGE_KEY = 'doro-paradise:appearance:v1'
+    const DEFAULT_APPEARANCE = Object.freeze({
+      wallpaperOpacity: 42,
+      wallpaperBlur: 0,
+      panelOpacity: 78,
+      glassBlur: 16,
+      saturation: 112,
+      liquidGlass: true,
+      petals: true,
+    })
+
+    const clamp = (value, min, max) => Math.min(max, Math.max(min, Number(value)))
+
+    function normalizeAppearance(value = {}) {
+      return {
+        wallpaperOpacity: clamp(value.wallpaperOpacity ?? DEFAULT_APPEARANCE.wallpaperOpacity, 0, 100),
+        wallpaperBlur: clamp(value.wallpaperBlur ?? DEFAULT_APPEARANCE.wallpaperBlur, 0, 32),
+        panelOpacity: clamp(value.panelOpacity ?? DEFAULT_APPEARANCE.panelOpacity, 28, 100),
+        glassBlur: clamp(value.glassBlur ?? DEFAULT_APPEARANCE.glassBlur, 0, 40),
+        saturation: clamp(value.saturation ?? DEFAULT_APPEARANCE.saturation, 80, 150),
+        liquidGlass: value.liquidGlass ?? DEFAULT_APPEARANCE.liquidGlass,
+        petals: value.petals ?? DEFAULT_APPEARANCE.petals,
+      }
+    }
+
+    function readAppearance() {
+      try {
+        return normalizeAppearance(JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}'))
+      } catch {
+        return { ...DEFAULT_APPEARANCE }
+      }
+    }
+
+    function writeAppearance(value) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizeAppearance(value)))
+    }
+
+    function applyAppearance(value) {
+      const appearance = normalizeAppearance(value)
+      const body = document.body
+      body.style.setProperty('--doro-wallpaper-opacity', (appearance.wallpaperOpacity / 100).toFixed(2))
+      body.style.setProperty('--doro-wallpaper-blur', `${appearance.wallpaperBlur}px`)
+      body.style.setProperty('--doro-panel-fill', `${appearance.panelOpacity}%`)
+      body.style.setProperty('--doro-glass-blur', `${appearance.glassBlur}px`)
+      body.style.setProperty('--doro-glass-saturation', (appearance.saturation / 100).toFixed(2))
+      body.setAttribute('data-doro-glass', appearance.liquidGlass ? 'liquid' : 'frosted')
+      body.setAttribute('data-doro-motion', appearance.petals ? 'on' : 'off')
+    }
 
     function stylesheet(asset) {
       return `
@@ -15,11 +63,16 @@ body[${SCOPE}] {
   --doro-mint: #87c7bd;
   --doro-ground: #130f20;
   --doro-label: #eadce8;
-  --doro-panel: color-mix(in srgb, var(--doro-ground) 78%, transparent);
+  --doro-wallpaper-opacity: .42;
+  --doro-wallpaper-blur: 0px;
+  --doro-panel-fill: 78%;
+  --doro-glass-blur: 16px;
+  --doro-glass-saturation: 1.12;
+  --doro-panel: color-mix(in srgb, var(--doro-ground) var(--doro-panel-fill), transparent);
   --dsw-alias-bg-base: transparent;
-  --dsw-alias-bg-layer-1: color-mix(in srgb, var(--doro-ground) 82%, transparent);
-  --dsw-alias-bg-layer-2: color-mix(in srgb, var(--doro-ground) 90%, transparent);
-  --dsw-alias-bg-layer-3: color-mix(in srgb, var(--doro-ground) 95%, transparent);
+  --dsw-alias-bg-layer-1: color-mix(in srgb, var(--doro-ground) var(--doro-panel-fill), transparent);
+  --dsw-alias-bg-layer-2: color-mix(in srgb, var(--doro-ground) var(--doro-panel-fill), rgba(255,255,255,.05));
+  --dsw-alias-bg-layer-3: color-mix(in srgb, var(--doro-ground) var(--doro-panel-fill), rgba(255,255,255,.09));
   --dsw-alias-label-primary: #fff6fb;
   --dsw-alias-label-secondary: var(--doro-label);
   --dsw-alias-label-tertiary: #cdb9ca;
@@ -37,14 +90,8 @@ body[${SCOPE}] {
   --dsw-alias-scrollbar-bg-l1: color-mix(in srgb, var(--doro-accent) 32%, transparent);
   --dsw-alias-scrollbar-hover-l1: color-mix(in srgb, var(--doro-accent) 58%, transparent);
   background-color: var(--doro-ground) !important;
-  background-image:
-    radial-gradient(circle at 20% 14%, rgba(233,154,184,.12), transparent 30%),
-    linear-gradient(rgba(19,15,32,.62), rgba(19,15,32,.62)),
-    url("${asset.backgroundDark}") !important;
-  background-position: center !important;
-  background-size: cover !important;
-  background-repeat: no-repeat !important;
-  background-attachment: fixed !important;
+  background-image: none !important;
+  isolation: isolate;
 }
 
 body[${SCOPE}]:not([data-ds-dark-theme]) {
@@ -53,10 +100,10 @@ body[${SCOPE}]:not([data-ds-dark-theme]) {
   --doro-highlight: #d96e9a;
   --doro-ground: #fff8fb;
   --doro-label: #62485b;
-  --doro-panel: rgba(255,248,251,.84);
-  --dsw-alias-bg-layer-1: rgba(255,248,251,.82);
-  --dsw-alias-bg-layer-2: rgba(255,248,251,.90);
-  --dsw-alias-bg-layer-3: rgba(255,248,251,.94);
+  --doro-panel: color-mix(in srgb, var(--doro-ground) var(--doro-panel-fill), transparent);
+  --dsw-alias-bg-layer-1: color-mix(in srgb, var(--doro-ground) var(--doro-panel-fill), transparent);
+  --dsw-alias-bg-layer-2: color-mix(in srgb, var(--doro-ground) var(--doro-panel-fill), rgba(155,77,115,.06));
+  --dsw-alias-bg-layer-3: color-mix(in srgb, var(--doro-ground) var(--doro-panel-fill), rgba(155,77,115,.10));
   --dsw-alias-label-primary: #352331;
   --dsw-alias-label-secondary: #62485b;
   --dsw-alias-label-tertiary: #765e70;
@@ -66,10 +113,22 @@ body[${SCOPE}]:not([data-ds-dark-theme]) {
   --dsw-alias-markdown-code-block: rgba(255, 250, 252, 0.94);
   --dsw-alias-markdown-code-block-banner: rgba(243, 226, 237, 0.94);
   --dsw-alias-markdown-inline-code: rgba(155, 77, 115, 0.12);
-  background-image:
-    radial-gradient(circle at 20% 14%, rgba(217,110,154,.10), transparent 30%),
-    linear-gradient(rgba(255,248,251,.58), rgba(255,248,251,.58)),
-    url("${asset.backgroundLight}") !important;
+}
+
+body[${SCOPE}] .doro-wallpaper {
+  position: fixed;
+  inset: -48px;
+  z-index: -2;
+  pointer-events: none;
+  background: center / cover no-repeat url("${asset.backgroundDark}");
+  opacity: var(--doro-wallpaper-opacity);
+  filter: blur(var(--doro-wallpaper-blur)) saturate(var(--doro-glass-saturation));
+  transform: translateZ(0) scale(1.025);
+  transform-origin: center;
+  transition: opacity .18s ease, filter .18s ease;
+}
+body[${SCOPE}]:not([data-ds-dark-theme]) .doro-wallpaper {
+  background-image: url("${asset.backgroundLight}");
 }
 
 body[${SCOPE}] ::selection { background: color-mix(in srgb, var(--doro-highlight) 48%, transparent); }
@@ -127,10 +186,10 @@ body[${SCOPE}] [class*="headlineText"]::after {
 body[${SCOPE}] [data-composer-card] {
   position: relative;
   border: 1px solid color-mix(in srgb, var(--doro-accent) 42%, transparent);
-  background: color-mix(in srgb, var(--doro-ground) 84%, transparent);
+  background: color-mix(in srgb, var(--doro-ground) var(--doro-panel-fill), transparent);
   box-shadow: 0 8px 30px rgba(23, 11, 29, .24), 0 0 24px color-mix(in srgb, var(--doro-accent) 10%, transparent);
-  -webkit-backdrop-filter: blur(14px) saturate(1.08);
-  backdrop-filter: blur(14px) saturate(1.08);
+  -webkit-backdrop-filter: blur(var(--doro-glass-blur)) saturate(var(--doro-glass-saturation));
+  backdrop-filter: blur(var(--doro-glass-blur)) saturate(var(--doro-glass-saturation));
 }
 body[${SCOPE}] [data-composer-card]:focus-within {
   border-color: var(--doro-accent-strong);
@@ -170,8 +229,8 @@ body[${SCOPE}] [data-composer-card]::after {
 
 body[${SCOPE}] [class*="bubble"] {
   border: 1px solid color-mix(in srgb, var(--doro-accent) 22%, transparent);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(var(--doro-glass-blur)) saturate(var(--doro-glass-saturation));
+  backdrop-filter: blur(var(--doro-glass-blur)) saturate(var(--doro-glass-saturation));
 }
 body[${SCOPE}] [class*="userRow"] [class*="bubble"] {
   border-color: color-mix(in srgb, var(--doro-highlight) 52%, transparent);
@@ -184,17 +243,17 @@ body[${SCOPE}]:not([data-ds-dark-theme]) [class*="userRow"] [class*="bubble"] {
 body[${SCOPE}] [data-conversation-scroll] [class*="column"] {
   background: linear-gradient(90deg, transparent, var(--doro-panel) 10%, var(--doro-panel) 90%, transparent);
   padding-inline: 18px;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(var(--doro-glass-blur)) saturate(var(--doro-glass-saturation));
+  backdrop-filter: blur(var(--doro-glass-blur)) saturate(var(--doro-glass-saturation));
 }
 body[${SCOPE}] [data-conversation-scroll] pre,
 body[${SCOPE}] [data-conversation-scroll] code { text-shadow: none; }
 body[${SCOPE}] [class*="callRow"] {
-  background: color-mix(in srgb, var(--doro-ground) 58%, transparent);
+  background: color-mix(in srgb, var(--doro-ground) var(--doro-panel-fill), transparent);
   border-radius: 9px;
   padding-inline: 8px;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(var(--doro-glass-blur)) saturate(var(--doro-glass-saturation));
+  backdrop-filter: blur(var(--doro-glass-blur)) saturate(var(--doro-glass-saturation));
 }
 body[${SCOPE}] [class*="codeBody"],
 body[${SCOPE}] [class*="code"] { border-left-color: var(--doro-accent); }
@@ -202,6 +261,32 @@ body[${SCOPE}] [role="dialog"],
 body[${SCOPE}] [data-shell-overlay] > * {
   border: 1px solid color-mix(in srgb, var(--doro-accent) 34%, transparent);
   box-shadow: 0 18px 64px rgba(17, 8, 24, .48);
+  -webkit-backdrop-filter: blur(var(--doro-glass-blur)) saturate(var(--doro-glass-saturation));
+  backdrop-filter: blur(var(--doro-glass-blur)) saturate(var(--doro-glass-saturation));
+}
+
+/* Liquid mode adds a bright refractive rim and soft internal caustic sheen.
+   It remains an enhancement over the same readable frosted surfaces. */
+body[${SCOPE}][data-doro-glass="liquid"] [data-composer-card],
+body[${SCOPE}][data-doro-glass="liquid"] [class*="bubble"],
+body[${SCOPE}][data-doro-glass="liquid"] [class*="callRow"],
+body[${SCOPE}][data-doro-glass="liquid"] [role="dialog"],
+body[${SCOPE}][data-doro-glass="liquid"] [data-shell-overlay] > * {
+  border-color: color-mix(in srgb, white 34%, var(--doro-accent));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.42),
+    inset 1px 0 0 rgba(255,255,255,.16),
+    inset 0 -1px 0 color-mix(in srgb, var(--doro-accent) 25%, transparent),
+    0 12px 36px rgba(22,10,30,.20),
+    0 0 26px color-mix(in srgb, var(--doro-accent) 9%, transparent);
+}
+body[${SCOPE}][data-doro-glass="liquid"] [data-composer-card]:hover,
+body[${SCOPE}][data-doro-glass="liquid"] [class*="bubble"]:hover {
+  border-color: color-mix(in srgb, white 48%, var(--doro-accent));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.55),
+    inset 0 -1px 0 color-mix(in srgb, var(--doro-accent) 30%, transparent),
+    0 14px 42px rgba(22,10,30,.24);
 }
 
 body[${SCOPE}] h1,
@@ -236,13 +321,120 @@ body[${SCOPE}] .doro-petals > i {
 @media (prefers-reduced-motion: reduce) {
   body[${SCOPE}] .doro-petals { display: none; }
 }
+body[${SCOPE}][data-doro-motion="off"] .doro-petals { display: none; }
 `
     }
 
+    function createAppearanceSettings(React) {
+      const labelStyle = { fontSize: 14, fontWeight: 500, color: 'var(--dsw-alias-label-primary)' }
+      const hintStyle = { fontSize: 12, lineHeight: 1.45, color: 'var(--dsw-alias-label-secondary)', marginTop: 2 }
+      const rowStyle = { display: 'grid', gridTemplateColumns: 'minmax(150px, 1fr) minmax(190px, 1.25fr)', alignItems: 'center', gap: 16, padding: '10px 0' }
+
+      function RangeRow({ label, hint, value, min, max, step, unit, onChange }) {
+        return React.createElement('div', { style: rowStyle },
+          React.createElement('div', null,
+            React.createElement('div', { style: labelStyle }, label),
+            React.createElement('div', { style: hintStyle }, hint)),
+          React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: 10 } },
+            React.createElement('input', {
+              type: 'range', min, max, step, value,
+              onChange: event => onChange(Number(event.target.value)),
+              style: { width: '100%', accentColor: 'var(--doro-accent, #d96e9a)', cursor: 'pointer' },
+            }),
+            React.createElement('span', {
+              style: { width: 54, textAlign: 'right', fontVariantNumeric: 'tabular-nums', color: 'var(--dsw-alias-label-secondary)', fontSize: 13 },
+            }, `${value}${unit}`)))
+      }
+
+      function ToggleRow({ label, hint, checked, onChange }) {
+        return React.createElement('div', { style: rowStyle },
+          React.createElement('div', null,
+            React.createElement('div', { style: labelStyle }, label),
+            React.createElement('div', { style: hintStyle }, hint)),
+          React.createElement('button', {
+            type: 'button',
+            role: 'switch',
+            'aria-checked': checked,
+            onClick: () => onChange(!checked),
+            style: {
+              justifySelf: 'end', width: 50, height: 28, padding: 3, borderRadius: 999, cursor: 'pointer',
+              border: '1px solid var(--dsw-alias-border-l)',
+              background: checked ? 'var(--doro-highlight, #b95b8f)' : 'var(--dsw-alias-bg-layer-3)',
+              transition: 'background .16s ease',
+            },
+          }, React.createElement('span', {
+            style: {
+              display: 'block', width: 20, height: 20, borderRadius: '50%', background: '#fff',
+              transform: checked ? 'translateX(22px)' : 'translateX(0)', transition: 'transform .16s ease',
+              boxShadow: '0 2px 7px rgba(0,0,0,.22)',
+            },
+          })))
+      }
+
+      return function DoroAppearanceSettings() {
+        const [appearance, setAppearance] = React.useState(readAppearance)
+        React.useEffect(() => { applyAppearance(appearance) }, [])
+
+        const change = (key, nextValue) => {
+          setAppearance(previous => {
+            const next = normalizeAppearance({ ...previous, [key]: nextValue })
+            writeAppearance(next)
+            applyAppearance(next)
+            return next
+          })
+        }
+        const reset = () => {
+          const next = { ...DEFAULT_APPEARANCE }
+          writeAppearance(next)
+          applyAppearance(next)
+          setAppearance(next)
+        }
+
+        return React.createElement('section', {
+          style: { padding: '16px 0 6px', borderTop: '1px solid var(--dsw-alias-border-l2)', marginTop: 4 },
+        },
+          React.createElement('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'start', gap: 12, marginBottom: 8 } },
+            React.createElement('div', null,
+              React.createElement('div', { style: { ...labelStyle, fontSize: 15 } }, 'Doro Paradise 玻璃外观'),
+              React.createElement('div', { style: hintStyle }, '设置保存在当前浏览器，拖动时实时预览。')),
+            React.createElement('button', {
+              type: 'button', onClick: reset,
+              style: { border: '1px solid var(--dsw-alias-border-l)', background: 'var(--dsw-alias-bg-layer-2)', color: 'var(--dsw-alias-label-primary)', borderRadius: 999, padding: '6px 11px', cursor: 'pointer' },
+            }, '恢复默认')),
+          React.createElement('div', {
+            style: {
+              height: 58, borderRadius: 14, margin: '12px 0 5px', padding: '0 16px', display: 'flex', alignItems: 'center',
+              color: 'var(--dsw-alias-label-primary)', border: '1px solid color-mix(in srgb, white 36%, var(--doro-accent))',
+              background: 'color-mix(in srgb, var(--doro-ground) var(--doro-panel-fill), transparent)',
+              backdropFilter: 'blur(var(--doro-glass-blur)) saturate(var(--doro-glass-saturation))',
+              boxShadow: appearance.liquidGlass ? 'inset 0 1px 0 rgba(255,255,255,.5), 0 10px 28px rgba(25,10,31,.16)' : '0 8px 22px rgba(25,10,31,.12)',
+            },
+          }, appearance.liquidGlass ? 'Liquid Glass · 桃乐丝的玻璃花园' : 'Frosted Glass · 柔和毛玻璃'),
+          React.createElement(RangeRow, { label: '壁纸强度', hint: '控制背景图可见程度。', value: appearance.wallpaperOpacity, min: 0, max: 100, step: 1, unit: '%', onChange: value => change('wallpaperOpacity', value) }),
+          React.createElement(RangeRow, { label: '壁纸模糊', hint: '只模糊背景，不影响文字和控件。', value: appearance.wallpaperBlur, min: 0, max: 32, step: 1, unit: 'px', onChange: value => change('wallpaperBlur', value) }),
+          React.createElement(RangeRow, { label: '面板不透明度', hint: '数值越低，玻璃越通透。', value: appearance.panelOpacity, min: 28, max: 100, step: 1, unit: '%', onChange: value => change('panelOpacity', value) }),
+          React.createElement(RangeRow, { label: '毛玻璃模糊', hint: '控制浮层后的折射模糊。', value: appearance.glassBlur, min: 0, max: 40, step: 1, unit: 'px', onChange: value => change('glassBlur', value) }),
+          React.createElement(RangeRow, { label: '玻璃饱和度', hint: '提高壁纸透过玻璃后的色彩浓度。', value: appearance.saturation, min: 80, max: 150, step: 1, unit: '%', onChange: value => change('saturation', value) }),
+          React.createElement(ToggleRow, { label: '液态玻璃高光', hint: '加入镜面边缘、内高光和悬停折射感。', checked: appearance.liquidGlass, onChange: value => change('liquidGlass', value) }),
+          React.createElement(ToggleRow, { label: '漂浮花瓣', hint: '关闭后保留静态主题，减少动画。', checked: appearance.petals, onChange: value => change('petals', value) }))
+      }
+    }
+
     function apply(ctx) {
+      const React = require('react')
+      const DoroAppearanceSettings = createAppearanceSettings(React)
+      ctx.effect(() => ctx.slots.inject('settings.general.item', () => ctx.slots.register({
+        name: 'settings.general.item',
+        id: 'doro-paradise-appearance',
+        order: 18,
+      }, DoroAppearanceSettings)), 'doro-paradise: appearance settings')
+
       ctx.effect(() => {
         const style = document.createElement('style')
         style.setAttribute('data-plugin', 'doro-paradise-theme')
+        const wallpaper = document.createElement('div')
+        wallpaper.className = 'doro-wallpaper'
+        wallpaper.setAttribute('aria-hidden', 'true')
         const petals = document.createElement('div')
         petals.className = 'doro-petals'
         petals.setAttribute('aria-hidden', 'true')
@@ -268,6 +460,8 @@ body[${SCOPE}] .doro-petals > i {
             style.textContent = stylesheet(asset)
             document.head.append(style)
             document.body.setAttribute(SCOPE, '')
+            applyAppearance(readAppearance())
+            document.body.prepend(wallpaper)
             document.body.append(petals)
             if (iconLink !== null) iconLink.setAttribute('href', asset.favicon)
           })
@@ -276,15 +470,21 @@ body[${SCOPE}] .doro-petals > i {
         return () => {
           cancelled = true
           style.remove()
+          wallpaper.remove()
           petals.remove()
           document.body.removeAttribute(SCOPE)
+          document.body.removeAttribute('data-doro-glass')
+          document.body.removeAttribute('data-doro-motion')
+          for (const property of ['--doro-wallpaper-opacity', '--doro-wallpaper-blur', '--doro-panel-fill', '--doro-glass-blur', '--doro-glass-saturation']) {
+            document.body.style.removeProperty(property)
+          }
           if (iconLink !== null && originalIcon !== null) iconLink.setAttribute('href', originalIcon)
         }
       }, 'doro-paradise: skin')
     }
 
     module.exports.apply = apply
-    module.exports.inject = []
+    module.exports.inject = ['slots']
     return module.exports
   },
 })

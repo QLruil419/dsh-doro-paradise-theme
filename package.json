@@ -1,16 +1,37 @@
 {
   "name": "dsh-doro-paradise-theme",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A Doro-inspired Paradise skin for the DeepSeek Harness web UI",
+  "author": "QLruil419",
   "type": "module",
   "main": "index.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QLruil419/dsh-doro-paradise-theme.git"
+  },
+  "homepage": "https://github.com/QLruil419/dsh-doro-paradise-theme#readme",
+  "bugs": {
+    "url": "https://github.com/QLruil419/dsh-doro-paradise-theme/issues"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "theme",
+    "doro",
+    "dorothy",
+    "nikke"
+  ],
   "files": [
     "index.js",
     "client.js",
     "theme-route.js",
     "cordis.patch.yml",
     "PROMPTS.md",
+    "README.md",
+    "README.en.md",
+    "ASSET_NOTICE.md",
+    "LICENSE",
     "assets"
   ],
   "exports": {
