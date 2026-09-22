@@ -6,9 +6,7 @@ An unofficial DeepSeek Harness web theme inspired by Dorothy and the Doro meme f
 
 > This fan project is not affiliated with SHIFT UP, Level Infinite, or DeepSeek. The source code is released under the MIT License. Character names, designs, and other original-IP rights remain with their respective owners. See [ASSET_NOTICE.md](ASSET_NOTICE.md).
 
-<p align="center">
-  <img src="assets/dorothy-doro-overlay.png" alt="Doro Paradise Dorothy and Doro" width="560">
-</p>
+![Doro Paradise Dorothy and Doro Eden wallpaper](assets/readme-wallpaper-dorothy.png)
 
 ## Highlights
 

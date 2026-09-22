@@ -6,9 +6,7 @@
 
 > 非官方粉丝项目，与 SHIFT UP、Level Infinite、DeepSeek 无关联。代码以 MIT 许可证开源；角色、名称及原作相关权利归各自权利人所有。详情见 [ASSET_NOTICE.md](ASSET_NOTICE.md)。
 
-<p align="center">
-  <img src="assets/dorothy-doro-overlay.png" alt="Doro Paradise 桃乐丝与 Doro" width="560">
-</p>
+![Doro Paradise 桃乐丝与 Doro 伊甸园壁纸](assets/readme-wallpaper-dorothy.png)
 
 ## 功能
 

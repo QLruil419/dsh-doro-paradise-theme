@@ -85,3 +85,20 @@ Asset type: transparent character overlay for a desktop theme
 Primary request: remove only the small chibi Doro mascot at the lower right, leaving Dorothy alone as a full-body character cutout.
 Constraints: preserve Dorothy's face, pose, hair, white-and-pink dress, wings, hand, legs, shoes, proportions, linework, colors, and full silhouette exactly; reconstruct any tiny overlap; keep a genuinely transparent background with clean antialiased edges; no shadow rectangle, gradient background, text, watermark, or additional objects.
 ```
+
+## README Dorothy wallpaper
+
+```text
+Use case: compositing
+Asset type: wide GitHub README hero wallpaper for the Doro Paradise DeepSeek Harness theme
+Primary request: create one finished widescreen wallpaper that visibly includes Dorothy within the Eden garden scene, rather than showing a standalone sidebar character image
+Input images: the clean light Eden wallpaper is the edit target; the Dorothy overlay is the main character reference; the Doro overlay is the mascot reference
+Scene/backdrop: preserve the luminous pearl-white, pale-pink, rose-and-crystal futuristic Eden garden
+Subject: place Dorothy as an elegant full-body character around the center-left, immediately recognizable but with breathing room; place the small Doro mascot near the lower-right
+Style/medium: polished anime game key art matching the supplied assets
+Composition/framing: 16:9 landscape wallpaper balanced for a GitHub README banner; Dorothy must be part of the wallpaper composition, not an isolated portrait panel
+Lighting/mood: soft luminous daylight and a dreamy Eden atmosphere
+Color palette: pearl white, blush pink, lavender, and rose gold
+Constraints: preserve Dorothy's pink hair, white layered dress, rose ornaments, mechanical angel wings, and recognizable face; preserve Doro's pink-haired white mascot form; no text, logo, UI, border, or watermark
+Avoid: portrait canvas, dark background, sidebar layout, character cut off at the head, or additional characters
+```
