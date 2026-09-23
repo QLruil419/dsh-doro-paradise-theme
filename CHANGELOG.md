@@ -2,6 +2,19 @@
 
 All notable changes to Doro Paradise are documented here.
 
+## [1.4.0] - 2026-09-23
+
+### Added
+
+- Added durable, origin-independent appearance persistence at `$DSH_HOME/doro-paradise-theme.json` (falling back to `~/.dsh/doro-paradise-theme.json`).
+- Added a `保存设置` button with visible saving, saved, and browser-fallback states.
+- Added a same-origin, trusted-host-fenced settings API with bounded JSON input and atomic file replacement.
+
+### Changed
+
+- All sliders and toggles now autosave to disk after a short debounce while retaining `localStorage` as a fast first-paint and offline fallback.
+- On startup, disk settings are restored even when DSH selects a different web-server port.
+
 ## [1.3.1] - 2026-09-22
 
 ### Fixed
@@ -77,3 +90,4 @@ All notable changes to Doro Paradise are documented here.
 [1.2.1]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.2.1
 [1.3.0]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.3.0
 [1.3.1]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.3.1
+[1.4.0]: https://github.com/QLruil419/dsh-doro-paradise-theme/releases/tag/v1.4.0

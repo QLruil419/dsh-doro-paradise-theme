@@ -4,7 +4,9 @@ window.__ModuleLoader__.load({
     const module = { exports: {} }
     const SCOPE = 'data-doro-paradise'
     const MANIFEST = '/doro-paradise-theme/manifest'
+    const SETTINGS_API = '/doro-paradise-theme/settings'
     const STORAGE_KEY = 'doro-paradise:appearance:v1'
+    const APPEARANCE_EVENT = 'doro-paradise:appearance'
     const DEFAULT_APPEARANCE = Object.freeze({
       wallpaperOpacity: 42,
       wallpaperBlur: 0,
@@ -19,6 +21,10 @@ window.__ModuleLoader__.load({
       liquidGlass: true,
       petals: true,
     })
+
+    let appearanceRevision = 0
+    let hostLoadPromise = null
+    let hostSaveTimer = null
 
     const clamp = (value, min, max) => Math.min(max, Math.max(min, Number(value)))
 
@@ -47,8 +53,90 @@ window.__ModuleLoader__.load({
       }
     }
 
+    function writeAppearanceLocally(value) {
+      const appearance = normalizeAppearance(value)
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appearance))
+      } catch {
+        // Disk-backed persistence remains available when browser storage is blocked.
+      }
+      return appearance
+    }
+
+    async function persistAppearanceToHost(value) {
+      const response = await fetch(SETTINGS_API, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ method: 'set', appearance: normalizeAppearance(value) }),
+        keepalive: true,
+      })
+      if (!response.ok) throw new Error(`settings save: ${response.status}`)
+      const result = await response.json()
+      if (result?.ok !== true) throw new Error('settings save rejected')
+      return true
+    }
+
+    function scheduleHostSave(value) {
+      if (hostSaveTimer !== null) clearTimeout(hostSaveTimer)
+      const appearance = normalizeAppearance(value)
+      hostSaveTimer = setTimeout(() => {
+        hostSaveTimer = null
+        persistAppearanceToHost(appearance)
+          .catch(error => console.warn('[Doro Paradise] disk save unavailable; browser cache retained:', error))
+      }, 250)
+    }
+
     function writeAppearance(value) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizeAppearance(value)))
+      const appearance = writeAppearanceLocally(value)
+      appearanceRevision += 1
+      scheduleHostSave(appearance)
+      return appearance
+    }
+
+    async function saveAppearanceNow(value) {
+      const appearance = writeAppearanceLocally(value)
+      appearanceRevision += 1
+      if (hostSaveTimer !== null) {
+        clearTimeout(hostSaveTimer)
+        hostSaveTimer = null
+      }
+      return persistAppearanceToHost(appearance)
+    }
+
+    function announceAppearance(value) {
+      const appearance = normalizeAppearance(value)
+      applyAppearance(appearance)
+      window.dispatchEvent(new CustomEvent(APPEARANCE_EVENT, { detail: appearance }))
+    }
+
+    function loadAppearanceFromHost() {
+      if (hostLoadPromise !== null) return hostLoadPromise
+      const revisionAtStart = appearanceRevision
+      hostLoadPromise = (async () => {
+        try {
+          const response = await fetch(SETTINGS_API, {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ method: 'get' }),
+          })
+          if (!response.ok) throw new Error(`settings load: ${response.status}`)
+          const result = await response.json()
+          const stored = result?.ok === true ? result.value?.appearance : null
+          if (stored !== null && typeof stored === 'object' && !Array.isArray(stored)) {
+            if (appearanceRevision !== revisionAtStart) return readAppearance()
+            const appearance = writeAppearanceLocally(stored)
+            announceAppearance(appearance)
+            return appearance
+          }
+          const appearance = readAppearance()
+          if (appearanceRevision === revisionAtStart) await persistAppearanceToHost(appearance)
+          return appearance
+        } catch (error) {
+          console.warn('[Doro Paradise] disk settings unavailable; using browser cache:', error)
+          return readAppearance()
+        }
+      })()
+      return hostLoadPromise
     }
 
     function applyAppearance(value) {
@@ -438,9 +526,17 @@ body[${SCOPE}][data-doro-motion="off"] .doro-petals { display: none; }
 
       return function DoroAppearanceSettings() {
         const [appearance, setAppearance] = React.useState(readAppearance)
-        React.useEffect(() => { applyAppearance(appearance) }, [])
+        const [saveState, setSaveState] = React.useState('idle')
+        React.useEffect(() => {
+          applyAppearance(appearance)
+          const syncFromHost = event => setAppearance(normalizeAppearance(event.detail))
+          window.addEventListener(APPEARANCE_EVENT, syncFromHost)
+          void loadAppearanceFromHost()
+          return () => window.removeEventListener(APPEARANCE_EVENT, syncFromHost)
+        }, [])
 
         const change = (key, nextValue) => {
+          setSaveState('idle')
           setAppearance(previous => {
             const next = normalizeAppearance({ ...previous, [key]: nextValue })
             writeAppearance(next)
@@ -448,11 +544,22 @@ body[${SCOPE}][data-doro-motion="off"] .doro-petals { display: none; }
             return next
           })
         }
+        const save = async () => {
+          setSaveState('saving')
+          try {
+            await saveAppearanceNow(appearance)
+            setSaveState('saved')
+          } catch (error) {
+            console.warn('[Doro Paradise] manual disk save failed:', error)
+            setSaveState('fallback')
+          }
+        }
         const reset = () => {
           const next = { ...DEFAULT_APPEARANCE }
           writeAppearance(next)
           applyAppearance(next)
           setAppearance(next)
+          setSaveState('idle')
         }
 
         return React.createElement('section', {
@@ -461,11 +568,16 @@ body[${SCOPE}][data-doro-motion="off"] .doro-petals { display: none; }
           React.createElement('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'start', gap: 12, marginBottom: 16 } },
             React.createElement('div', null,
               React.createElement('div', { style: { ...labelStyle, fontSize: 19, fontWeight: 600 } }, 'Doro Paradise'),
-              React.createElement('div', { style: { ...hintStyle, marginTop: 5 } }, '桃乐丝主题、角色图层与玻璃外观。设置保存在当前浏览器，拖动时实时预览。')),
-            React.createElement('button', {
-              type: 'button', onClick: reset,
-              style: { border: '1px solid var(--dsw-alias-border-l)', background: 'var(--dsw-alias-bg-layer-2)', color: 'var(--dsw-alias-label-primary)', borderRadius: 999, padding: '6px 11px', cursor: 'pointer' },
-            }, '恢复默认')),
+              React.createElement('div', { style: { ...hintStyle, marginTop: 5 } }, '设置会自动保存到 DSH 本机配置，重启或更换端口后仍会恢复。')),
+            React.createElement('div', { style: { display: 'flex', gap: 8, alignItems: 'center' } },
+              React.createElement('button', {
+                type: 'button', onClick: save, disabled: saveState === 'saving',
+                style: { border: '1px solid var(--doro-accent)', background: 'color-mix(in srgb, var(--doro-accent) 22%, var(--dsw-alias-bg-layer-2))', color: 'var(--dsw-alias-label-primary)', borderRadius: 999, padding: '6px 11px', cursor: saveState === 'saving' ? 'wait' : 'pointer' },
+              }, saveState === 'saving' ? '保存中…' : saveState === 'saved' ? '已保存' : saveState === 'fallback' ? '仅浏览器已保存' : '保存设置'),
+              React.createElement('button', {
+                type: 'button', onClick: reset,
+                style: { border: '1px solid var(--dsw-alias-border-l)', background: 'var(--dsw-alias-bg-layer-2)', color: 'var(--dsw-alias-label-primary)', borderRadius: 999, padding: '6px 11px', cursor: 'pointer' },
+              }, '恢复默认'))),
           React.createElement('div', {
             style: {
               height: 58, borderRadius: 14, margin: '12px 0 5px', padding: '0 16px', display: 'flex', alignItems: 'center',
@@ -538,6 +650,7 @@ body[${SCOPE}][data-doro-motion="off"] .doro-petals { display: none; }
             document.head.append(style)
             document.body.setAttribute(SCOPE, '')
             applyAppearance(readAppearance())
+            void loadAppearanceFromHost()
             document.body.prepend(wallpaper, wallpaperDorothy, wallpaperDoro)
             document.body.append(petals)
             if (iconLink !== null) iconLink.setAttribute('href', asset.favicon)
@@ -546,6 +659,12 @@ body[${SCOPE}][data-doro-motion="off"] .doro-petals { display: none; }
 
         return () => {
           cancelled = true
+          if (hostSaveTimer !== null) {
+            clearTimeout(hostSaveTimer)
+            hostSaveTimer = null
+            void persistAppearanceToHost(readAppearance())
+              .catch(() => {})
+          }
           style.remove()
           wallpaper.remove()
           wallpaperDorothy.remove()

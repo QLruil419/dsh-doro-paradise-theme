@@ -17,14 +17,16 @@ An unofficial DeepSeek Harness web theme inspired by Dorothy and the Doro meme f
 - Independent sidebar transparency, centered Dorothy, and a separately scalable right-side Doro layer.
 - Adjustable sidebar-art elevation (48–320 px) keeps Dorothy's feet and Doro clear of extra plugin shortcuts and separators.
 - The wallpaper uses a calm Eden-integrated standing Dorothy, while the sidebar uses a separate seated rose-tea vignette instead of reusing the same art.
-- Live preview with browser-local persistence; no Harness restart is required for setting changes.
+- Live preview with durable settings stored at `$DSH_HOME/doro-paradise-theme.json`; preferences survive DSH restarts and random web-server ports, with `localStorage` retained as a fast fallback.
+- A manual Save button complements automatic debounced disk saves and reports the save result.
 - Installs as a normal Harness plugin and does not patch Harness source files.
 
 ## Releases
 
 | Version | Description |
 | --- | --- |
-| `v1.3.1` | Current release with a raised sidebar illustration and adjustable elevation for plugin-heavy layouts. |
+| `v1.4.0` | Current release with durable cross-restart, cross-port disk persistence and a manual Save button. |
+| `v1.3.1` | Adds a raised sidebar illustration and adjustable elevation for plugin-heavy layouts. |
 | `v1.3.0` | Adds distinct wallpaper and sidebar Dorothy illustrations and improved wallpaper integration. |
 | `v1.2.1` | Adds a dedicated `Doro Paradise` settings page alongside General and Models. |
 | `v1.2.0` | Adds sidebar transparency, a centered Dorothy layer, and separately scalable right-side Doro. |
@@ -109,7 +111,7 @@ The liquid-glass look is a Chromium-oriented CSS approximation. Browsers without
 
 ## Compatibility
 
-Avoid enabling another global skin that also rewrites the page background, panel opacity, or theme variables. In particular, `dsh-dream-skin` can override the same surfaces. Version `v1.3.1` includes opacity, frosted-glass, liquid-glass, and character-layer controls directly.
+Avoid enabling another global skin that also rewrites the page background, panel opacity, or theme variables. In particular, `dsh-dream-skin` can override the same surfaces. Version `v1.4.0` includes opacity, frosted-glass, liquid-glass, and character-layer controls directly.
 
 ## Uninstall
 
